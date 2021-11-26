@@ -9,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class CalculatorComponent implements OnInit {
   currentNumber = '0'; //gets the current number which is entered
   firstOperand = ''; // contains the recent value entered before the operation
-  tmp = ''; // displays the operation on the calculator screen
+  tmp = '0'; // displays the operation on the calculator screen
   operator = ''; // contains the operator + - * / =
   waitForSecondNumber = false; // turns true when the next number after an operation has been entered
+  result = '';
+  doneCalculation = false;
 
   public getNumber(v: string) {
     if (this.waitForSecondNumber) {
@@ -21,54 +23,75 @@ export class CalculatorComponent implements OnInit {
     this.currentNumber === '0'
       ? (this.currentNumber = v)
       : (this.currentNumber += v);
-      this.tmp += this.currentNumber
+
+    if (this.tmp === '0' || this.doneCalculation === true) {
+      this.tmp = this.currentNumber;
+      // this.firstOperand = '';
+    } else {
+      this.tmp += v;
     }
+    this.doneCalculation = false;
+  }
   getDecimal() {
     if (!this.currentNumber.includes('.')) {
       this.currentNumber += '.';
-      this.tmp += this.currentNumber;
-
+      this.tmp += '.';
     }
   }
 
-  private doCalculation(op:string, secondOp:string) {
-    this.tmp = this.firstOperand;
-    this.tmp = this.tmp + op + secondOp;
-    this.currentNumber='0';
-    this.firstOperand='';
-    this.waitForSecondNumber=false;
+  private doCalculation(op: string, secondOp: string) {
+    // this.tmp = this.firstOperand;
+    // this.tmp = this.tmp + op + secondOp;
+    this.currentNumber = '0';
+    this.firstOperand = '';
+    this.waitForSecondNumber = false;
     console.log(this);
-    return eval(this.tmp);
+    try {
+      this.result = eval(this.tmp);
+    } catch (error) {
+      this.result = 'invalid operation';
+    }
+    
+    return this.result;
   }
 
   public getOperation(op: string) {
     console.log(op);
-    this.tmp += op;
     if (this.firstOperand === '') {
       this.firstOperand = this.currentNumber;
     } else if (this.operator !== '') {
-      const result = this.doCalculation(
-        this.operator,
-        this.currentNumber
-      );
+      const result = this.doCalculation(this.operator, this.currentNumber);
       this.currentNumber = String(result);
       this.firstOperand = result;
     }
     this.operator = op;
     this.waitForSecondNumber = true;
-    if(op === '='){
-      this.operator='';
+    if (op === '=') {
+      this.doCalculation(this.operator, this.currentNumber);
+      this.operator = '';
+      this.doneCalculation = true;
+      console.log(this.currentNumber);
+    } else {
+      this.tmp += op;
     }
 
     console.log(this.firstOperand);
   }
 
-  public clear() {
+  public clearAll() {
     this.currentNumber = '0';
     this.firstOperand = '';
     this.operator = '';
     this.waitForSecondNumber = false;
     this.tmp = '0';
+    this.result = '';
+  }
+  public clear(){
+   
+    this.tmp = this.tmp.substring(0, this.tmp.length - 1);
+    if(this.tmp === '')
+      this.tmp = '0';
+    this.currentNumber = this.tmp;
   }
 
   constructor() {}

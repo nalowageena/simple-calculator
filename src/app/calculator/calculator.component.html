@@ -1,37 +1,81 @@
 <div class="calculator">
-  
- <div class="calculator-screen">
-  <input type="text" id="calc" [value]="tmp" disabled />
-  <input type="text"  id="result" [value]="result" disabled />
- </div>
+  <div class="calculator-screen">
+    <input type="text" id="calc" [value]="tmp" disabled />
+    <input type="text" id="result" [value]="result" disabled />
+  </div>
 
   <div class="calculator-keys">
+    <button type="button" class="all-clear" value="all-clear" (click)="clear()">
+      DEL
+    </button>
+    <button
+      type="button"
+      class="all-clear"
+      value="all-clear"
+      (click)="clearAll()"
+    >
+      AC
+    </button>
+    <button
+      type="button"
+      class="equal-sign"
+      value="="
+      (click)="getOperation('=')"
+    >
+      =
+    </button>
+    <button
+      type="button"
+      class="operator"
+      value="+"
+      (click)="getOperation('+')"
+    >
+      +
+    </button>
 
-    <button type="button" class="operator" value="+" (click) = "getOperation('+')" >+</button>
-    <button type="button" class="operator" value="-" (click) = "getOperation('-')">-</button>
-    <button type="button" class="operator" value="*" (click) = "getOperation('*')">&times;</button>
-    <button type="button" class="operator" value="/" (click) = "getOperation('/')">&divide;</button>
+    <button type="button" value="7" (click)="getNumber('7')">7</button>
+    <button type="button" value="8" (click)="getNumber('8')">8</button>
+    
+    <button type="button" value="9" (click)="getNumber('9')">9</button>
+    <button
+      type="button"
+      class="operator"
+      value="-"
+      (click)="getOperation('-')"
+    >
+      -
+    </button>
 
-    <button type="button" value="7" (click) = "getNumber('7')">7</button>
-    <button type="button" value="8" (click) = "getNumber('8')">8</button>
-    <button type="button" value="9" (click) = "getNumber('9')">9</button>
+    <button type="button" value="4" (click)="getNumber('4')">4</button>
+    <button type="button" value="5" (click)="getNumber('5')">5</button>
+    
+    <button type="button" value="6" (click)="getNumber('6')">6</button>
+    <button
+      type="button"
+      class="operator"
+      value="*"
+      (click)="getOperation('*')"
+    >
+      &times;
+    </button>
 
+    <button type="button" value="1" (click)="getNumber('1')">1</button>
+    <button type="button" value="2" (click)="getNumber('2')">2</button>
+    
+    <button type="button" value="3" (click)="getNumber('3')">3</button>
+    <button
+      type="button"
+      class="operator"
+      value="/"
+      (click)="getOperation('/')"
+    >
+      &divide;
+    </button>
 
-    <button type="button" value="4" (click) = "getNumber('4')">4</button>
-    <button type="button" value="5" (click) = "getNumber('5')">5</button>
-    <button type="button" value="6" (click) = "getNumber('6')">6</button>
-
-
-    <button type="button" value="1" (click) = "getNumber('1')">1</button>
-    <button type="button" value="2" (click) = "getNumber('2')">2</button>
-    <button type="button" value="3" (click) = "getNumber('3')">3</button>
-
-
-    <button type="button" value="0" (click) = "getNumber('0')">0</button>
-    <button type="button" class="decimal" value="." (click) = "getDecimal()">.</button>
-    <button type="button" class="all-clear" value="all-clear" (click) = "clear()">AC</button>
-
-    <button type="button" class="equal-sign" value="=" (click) = "getOperation('=')">=</button>
-
+    <button type="button" class="decimal" value="." (click)="getDecimal()">
+      .
+    </button>
+    <button type="button" value="0" (click)="getNumber('0')">0</button>
+    
   </div>
 </div>

@@ -48,8 +48,11 @@ export class CalculatorComponent implements OnInit {
     console.log(this);
     try {
       this.result = eval(this.tmp);
+      if((this.result == 'NaN')||(this.result == 'Infinity')){
+        this.result = 'Math Error'
+      }
     } catch (error) {
-      this.result = 'invalid operation';
+      this.result = 'Invalid operation';
     }
     
     return this.result;
